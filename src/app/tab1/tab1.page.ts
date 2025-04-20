@@ -112,15 +112,19 @@ export class Tab1Page {
     }
   }
 
-  searchItems() {
-    if (!this.searchTerm) {
-      this.filteredItems = [...this.items];
-      return;
-    }
-    this.filteredItems = this.items.filter(item => 
-      item.itemName.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+searchItems() {
+  const term = this.searchTerm?.toLowerCase().trim() || '';
+  
+  if (!term) {
+    this.filteredItems = [...this.items];
+    return;
   }
+
+  this.filteredItems = this.items.filter(item =>
+    item.itemName?.toLowerCase().includes(term)
+  );
+}
+
 
   confirmDelete(itemName: string) {
     this.itemToDelete = itemName;
