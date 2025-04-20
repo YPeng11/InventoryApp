@@ -92,9 +92,14 @@ export class Tab1Page {
     private router: Router
   ) {}
 
-  ionViewWillEnter() {
-    this.loadItems();
-  }
+ionViewWillEnter() {
+  this.inventoryService.getAllItems().subscribe(items => {
+    this.items = items || [];
+    this.filteredItems = [...this.items];
+    console.log('获取到项目：', this.items);
+  });
+}
+
 
   async loadItems() {
     try {

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError, tap, retry, delay } from 'rxjs/operators';
+import { catchError, tap, retry, delay,map } from 'rxjs/operators';
 import { InventoryItem, Category, StockStatus } from '../models/item';
+
 
 const API_URL = 'https://prog2005.it.scu.edu.au/ArtGalley';
 
@@ -18,13 +19,26 @@ export class InventoryService {
   constructor(private http: HttpClient) {}
 
   // 获取所有项目（带重试机制）
-  getAllItems(): Observable<InventoryItem[]> {
-    return this.http.get<InventoryItem[]>(API_URL, { headers: this.headers }).pipe(
-      retry(2), // 失败时自动重试2次
-      tap(_ => console.log('成功获取项目列表')),
-      catchError(this.handleError<InventoryItem[]>('getAllItems', []))
-    );
-  }
+getAllItems(): Observable<InventoryItem[]> {
+  return this.http.get<any[]>(API_URL, { headers: this.headers }).pipe(
+    retry(2),
+    tap(_ => console.log('成功获取项目列表')),
+    map((data: any[]) =>
+      data.map((item: any) => ({
+        itemName: item.item_name,
+        category: item.category,
+        quantity: item.quantity,
+        price: item.price,
+        supplierName: item.supplier_name,
+        stockStatus: item.stock_status,
+        featured: item.featured,
+        specialNotes: item.special_notes
+      }))
+    ),
+    catchError(this.handleError<InventoryItem[]>('getAllItems', []))
+  );
+}
+
 
   // 按名称获取项目
   getItemByName(name: string): Observable<InventoryItem> {
