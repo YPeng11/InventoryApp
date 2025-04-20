@@ -97,9 +97,9 @@ ionViewWillEnter() {
     this.items = items || [];
     this.filteredItems = [...this.items];
     console.log('获取到项目：', this.items);
+
   });
 }
-
 
   async loadItems() {
     try {
@@ -165,8 +165,10 @@ searchItems() {
   }
 
   editItem(itemName: string) {
-    this.router.navigate(['/edit', encodeURIComponent(itemName)]);
-  }
+  console.log('跳转编辑页面，itemName:', itemName);
+  this.router.navigate(['/edit', encodeURIComponent(itemName)]);
+}
+
 
   getFeaturedItems(): InventoryItem[] {
     return this.items.filter(item => item.featured === 1);
