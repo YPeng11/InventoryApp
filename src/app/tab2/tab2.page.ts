@@ -31,8 +31,8 @@ export class Tab2Page {
   };
 
   // 选择器选项
-  categories = ['电子产品', '家具', '服装', '工具', '杂项'];
-  stockStatuses = ['有货', '低库存', '缺货'];
+  categories = ['Electronics', 'Furniture', 'Clothing', 'Tools', 'Miscellaneous'];
+  stockStatuses = ['In stock', 'Low stock', 'Out of stock'];
 
   isAlertOpen = false;
 
@@ -53,7 +53,17 @@ export class Tab2Page {
   loadItem(name: string) {
     this.http.get(`https://prog2005.it.scu.edu.au/ArtGalley/${name}`).subscribe({
       next: (data: any) => {
-        this.item = data;
+        if (data.length > 0) {
+          this.item.itemName = data[0].item_name;
+          this.item.category = data[0].category;
+          this.item.quantity = data[0].quantity;
+          this.item.price = data[0].price;
+          this.item.supplierName = data[0].supplier_name;
+          this.item.stockStatus = data[0].stock_status;
+          this.item.featured = data[0].featured_item;
+          this.item.specialNotes = data[0].special_notes;
+        }
+
       },
       error: () => {
         this.isAlertOpen = true;
@@ -69,12 +79,30 @@ export class Tab2Page {
 
     const url = 'https://prog2005.it.scu.edu.au/ArtGalley/';
     if (this.isEditMode) {
-      this.http.put(url + this.item.itemName, this.item).subscribe({
+      this.http.put(url + this.item.itemName, {
+        item_name: this.item.itemName,
+        category: this.item.category,
+        quantity: this.item.quantity,
+        price: this.item.price,
+        supplier_name: this.item.supplierName,
+        stock_status: this.item.stockStatus,
+        featured_item: this.item.featured,
+        special_notes: this.item.specialNotes
+      }).subscribe({
         next: () => this.router.navigate(['/tabs/tab1']),
         error: () => this.isAlertOpen = true
       });
     } else {
-      this.http.post(url, this.item).subscribe({
+      this.http.post(url, {
+        item_name: this.item.itemName,
+        category: this.item.category,
+        quantity: this.item.quantity,
+        price: this.item.price,
+        supplier_name: this.item.supplierName,
+        stock_status: this.item.stockStatus,
+        featured_item: this.item.featured,
+        special_notes: this.item.specialNotes
+      }).subscribe({
         next: () => this.router.navigate(['/tabs/tab1']),
         error: () => this.isAlertOpen = true
       });
