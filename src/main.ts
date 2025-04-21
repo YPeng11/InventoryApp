@@ -16,16 +16,16 @@ import { AppComponent } from './app/app.component';
 
 // 必须添加的图标导入
 import { addIcons } from 'ionicons';
-import { add, helpCircle, trash, search } from 'ionicons/icons';
+import { add, helpCircle, trash, search, starOutline } from 'ionicons/icons'; // 添加 starOutline 图标
 
 // 注册图标
-addIcons({ add, 'help-circle': helpCircle, trash, search });
+addIcons({ add, 'help-circle': helpCircle, trash, search, 'star-outline': starOutline }); // 注册 star-outline 图标
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular({}),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-  provideHttpClient(), // 新增
+    provideHttpClient(), // 新增
   ],
 });

@@ -70,10 +70,12 @@ export class Tab1Page {
   items: InventoryItem[] = [];
   isAlertOpen = false;
   itemToDelete: string | null = null;
+  showingFeaturedOnly = false;
 
   // 枚举用于模板
   categories = Object.values(Category);
   stockStatuses = Object.values(StockStatus);
+  toggleFeaturedFilter() { this.showingFeaturedOnly = !this.showingFeaturedOnly; this.filterItems(); }
 
   // Alert 按钮配置
   alertButtons = [
@@ -100,9 +102,8 @@ export class Tab1Page {
   ionViewWillEnter() {
     this.inventoryService.getAllItems().subscribe(items => {
       this.items = items || [];
-      this.filteredItems = [...this.items];
+      this.filterItems(); // 调用 filterItems 方法
       console.log('获取到项目：', this.items);
-
     });
   }
 
@@ -110,10 +111,9 @@ export class Tab1Page {
     try {
       const response = await this.inventoryService.getAllItems().toPromise();
       this.items = response || [];
-      this.filteredItems = [...this.items];
+      this.filterItems(); // 调用 filterItems 方法
     } catch (error) {
       console.error('加载物品失败:', error);
-      // 处理路由错误
       if (error instanceof Error && error.message.includes('hybridaction')) {
         console.warn('忽略混合动作路由错误');
         return;
@@ -121,20 +121,25 @@ export class Tab1Page {
       throw error;
     }
   }
-
-  searchItems() {
+  filterItems() {
     const term = this.searchTerm?.toLowerCase().trim() || '';
+    let base = [...this.items];
 
-    if (!term) {
-      this.filteredItems = [...this.items];
-      return;
+    if (this.showingFeaturedOnly) {
+      base = base.filter(item => item.featured === 1);
     }
 
-    this.filteredItems = this.items.filter(item =>
-      item.itemName?.toLowerCase().includes(term)
-    );
+    if (term) {
+      this.filteredItems = base.filter(item =>
+        item.itemName?.toLowerCase().includes(term)
+      );
+    } else {
+      this.filteredItems = base;
+    }
   }
-
+  searchItems() {
+    this.filterItems();
+  }
 
   confirmDelete(itemName: string) {
     this.itemToDelete = itemName;
@@ -175,15 +180,15 @@ export class Tab1Page {
       cssClass: 'help-popover',
       componentProps: {
         content: `
-          <h2>库存管理帮助</h2>
-          <p>1. 搜索：使用顶部搜索栏可以快速查找物品</p>
-          <p>2. 特色项目：显示标记为特色的重要物品</p>
-          <p>3. 物品列表：显示所有库存物品</p>
-          <p>4. 操作：</p>
+          <h2>Inventory Management Help</h2>
+          <p>1. Search: Use the top search bar to quickly find items</p>
+          <p>2. Featured Items: Shows important items marked as featured</p>
+          <p>3. Item List: Displays all inventory items</p>
+          <p>4. Actions:</p>
           <ul>
-            <li>点击物品可查看/编辑详情</li>
-            <li>左滑可删除物品</li>
-            <li>点击右下角"+"添加新物品</li>
+            <li>Click on an item to view/edit details</li>
+            <li>Swipe left to delete an item</li>
+            <li>Click the "+" button in the bottom right to add a new item</li>
           </ul>
         `
       }

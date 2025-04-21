@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ isEditMode ? '编辑项目' : '添加项目' }}</ion-title>
+    <ion-title>{{ isEditMode ? 'Edit Item' : 'Add Item' }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="saveItem()">保存</ion-button>
+      <ion-button (click)="saveItem()">Save</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,16 +13,16 @@
 <ion-content>
   <form (ngSubmit)="saveItem()">
     <ion-list>
-      <!-- 项目名称 -->
+      <!-- Item Name -->
       <ion-item>
-        <ion-label position="stacked">项目名称 <span class="required">*</span></ion-label>
+        <ion-label position="stacked">Item Name <span class="required">*</span></ion-label>
         <ion-input [(ngModel)]="item.itemName" name="itemName" type="text" required [disabled]="isEditMode">
         </ion-input>
       </ion-item>
 
-      <!-- 类别 -->
+      <!-- Category -->
       <ion-item>
-        <ion-label position="stacked">类别 <span class="required">*</span></ion-label>
+        <ion-label position="stacked">Category <span class="required">*</span></ion-label>
         <ion-select [(ngModel)]="item.category" name="category" interface="action-sheet">
           <ion-select-option *ngFor="let cat of categories" [value]="cat">
             {{ cat }}
@@ -30,30 +30,30 @@
         </ion-select>
       </ion-item>
 
-      <!-- 数量 -->
+      <!-- Quantity -->
       <ion-item>
-        <ion-label position="stacked">数量 <span class="required">*</span></ion-label>
+        <ion-label position="stacked">Quantity <span class="required">*</span></ion-label>
         <ion-input [(ngModel)]="item.quantity" name="quantity" type="number" min="0" required>
         </ion-input>
       </ion-item>
 
-      <!-- 价格 -->
+      <!-- Price -->
       <ion-item>
-        <ion-label position="stacked">价格 <span class="required">*</span></ion-label>
+        <ion-label position="stacked">Price <span class="required">*</span></ion-label>
         <ion-input [(ngModel)]="item.price" name="price" type="number" min="0" step="0.01" required>
         </ion-input>
       </ion-item>
 
-      <!-- 供应商 -->
+      <!-- Supplier -->
       <ion-item>
-        <ion-label position="stacked">供应商名称 <span class="required">*</span></ion-label>
+        <ion-label position="stacked">Supplier Name <span class="required">*</span></ion-label>
         <ion-input [(ngModel)]="item.supplierName" name="supplierName" type="text" required>
         </ion-input>
       </ion-item>
 
-      <!-- 库存状态 -->
+      <!-- Stock Status -->
       <ion-item>
-        <ion-label position="stacked">库存状态 <span class="required">*</span></ion-label>
+        <ion-label position="stacked">Stock Status <span class="required">*</span></ion-label>
         <ion-select [(ngModel)]="item.stockStatus" name="stockStatus" interface="action-sheet">
           <ion-select-option *ngFor="let status of stockStatuses" [value]="status">
             {{ status }}
@@ -61,30 +61,31 @@
         </ion-select>
       </ion-item>
 
-      <!-- 特色项目 -->
+      <!-- Featured Item -->
       <ion-item>
-        <ion-label>特色项目</ion-label>
+        <ion-label>Featured Item</ion-label>
         <ion-toggle [(ngModel)]="item.featured" name="featured" [checked]="item.featured === 1"
           (ionChange)="item.featured = $event.detail.checked ? 1 : 0">
         </ion-toggle>
       </ion-item>
 
-      <!-- 特别说明 -->
+      <!-- Special Notes -->
       <ion-item>
-        <ion-label position="stacked">特别说明</ion-label>
+        <ion-label position="stacked">Special Notes</ion-label>
         <ion-textarea [(ngModel)]="item.specialNotes" name="specialNotes" rows="4">
         </ion-textarea>
       </ion-item>
     </ion-list>
 
-    <!-- 操作按钮 -->
+    <!-- Action Buttons -->
     <div class="ion-padding">
-      <ion-button expand="block" type="submit">保存</ion-button>
-      <ion-button expand="block" fill="outline" (click)="cancel()">取消</ion-button>
+      <ion-button expand="block" type="submit">Save</ion-button>
+      <ion-button expand="block" fill="outline" (click)="cancel()">Cancel</ion-button>
     </div>
   </form>
 
-  <!-- 错误提示 -->
-  <ion-alert [isOpen]="isAlertOpen" header="错误" message="保存项目时出错，请重试！" [buttons]="['确定']" (didDismiss)="setOpen(false)">
+  <!-- Error Alert -->
+  <ion-alert [isOpen]="isAlertOpen" header="Error" message="Error saving item, please try again!" [buttons]="['OK']"
+    (didDismiss)="setOpen(false)">
   </ion-alert>
 </ion-content>

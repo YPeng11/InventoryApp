@@ -31,7 +31,7 @@ getAllItems(): Observable<InventoryItem[]> {
         price: item.price,
         supplierName: item.supplier_name,
         stockStatus: item.stock_status,
-        featured: item.featured,
+        featured: item.featured_item,
         specialNotes: item.special_notes
       }))
     ),
