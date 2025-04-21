@@ -1,0 +1,71 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/home']">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Privacy & Security
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelp()">
+        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Privacy & Security</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-text>
+    <h1>Privacy and Security Requirements</h1>
+    <p>
+      This application interacts with a remote database (<code>https://prog2005.it.scu.edu.au/ArtGalley</code>) to
+      manage inventory data. Please be aware of the following:
+    </p>
+    <ul>
+      <li>
+        <strong>Data Transmission:</strong> Data submitted (item details) is sent over the network via HTTPS, providing
+        encryption during transit. Ensure you are on a trusted network.
+      </li>
+      <li>
+        <strong>Data Storage:</strong> Inventory data is stored on the remote server. No inventory data is persistently
+        stored locally on your device.
+      </li>
+      <li>
+        <strong>Authentication:</strong> This educational version may lack user authentication. Access control relies on
+        the API's configuration. Real-world apps require robust security.
+      </li>
+      <li>
+        <strong>Unique Item Names:</strong> The backend enforces unique item names. Adding an item with a duplicate name
+        will result in an error. Updates target items by their unique name.
+      </li>
+      <li>
+        <strong>Input Validation:</strong> The app validates input (required fields, numeric types) before submission to
+        maintain data integrity.
+      </li>
+      <li>
+        <strong>Third-Party API:</strong> The application depends on the provided backend API. Its security and
+        availability are managed externally.
+      </li>
+      <li>
+        <strong>No Personal Data Collection:</strong> The app is designed for inventory management and does not
+        intentionally collect personal user data unless entered into inventory fields (e.g., 'Supplier Name').
+      </li>
+      <li>
+        <strong>Security Disclaimer:</strong> This is an educational tool. Security measures may be simplified. Avoid
+        using sensitive, real-world data.
+      </li>
+    </ul>
+    <p>
+      Use this application responsibly.
+    </p>
+  </ion-text>
+</ion-content>
