@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -21,12 +21,14 @@ import {
   IonText,
   IonBackButton,
   IonAlert,
-  IonListHeader
+  IonListHeader,
+  PopoverController
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { InventoryService } from '../services/inventory.service';
 import { InventoryItem, Category, StockStatus } from '../models/item';
-import { HttpClientModule } from '@angular/common/http'; // 新增
+import { HttpClientModule } from '@angular/common/http';
+import { HelpPopoverComponent } from '../components/help-popover/help-popover.component';
 
 @Component({
   selector: 'app-tab1',
@@ -37,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http'; // 新增
     CommonModule,
     FormsModule,
     RouterLink,
-    HttpClientModule, // 新增
+    HttpClientModule,
+    HelpPopoverComponent,
     // Ionic 组件
     IonFab,
     IonFabButton,
@@ -90,17 +93,18 @@ export class Tab1Page {
   constructor(
     private inventoryService: InventoryService,
     private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private popoverController: PopoverController
+  ) { }
 
-ionViewWillEnter() {
-  this.inventoryService.getAllItems().subscribe(items => {
-    this.items = items || [];
-    this.filteredItems = [...this.items];
-    console.log('获取到项目：', this.items);
+  ionViewWillEnter() {
+    this.inventoryService.getAllItems().subscribe(items => {
+      this.items = items || [];
+      this.filteredItems = [...this.items];
+      console.log('获取到项目：', this.items);
 
-  });
-}
+    });
+  }
 
   async loadItems() {
     try {
@@ -118,18 +122,18 @@ ionViewWillEnter() {
     }
   }
 
-searchItems() {
-  const term = this.searchTerm?.toLowerCase().trim() || '';
+  searchItems() {
+    const term = this.searchTerm?.toLowerCase().trim() || '';
 
-  if (!term) {
-    this.filteredItems = [...this.items];
-    return;
+    if (!term) {
+      this.filteredItems = [...this.items];
+      return;
+    }
+
+    this.filteredItems = this.items.filter(item =>
+      item.itemName?.toLowerCase().includes(term)
+    );
   }
-
-  this.filteredItems = this.items.filter(item =>
-    item.itemName?.toLowerCase().includes(term)
-  );
-}
 
 
   confirmDelete(itemName: string) {
@@ -163,14 +167,34 @@ searchItems() {
     this.itemToDelete = null;
   }
 
-  openHelp() {
-    this.router.navigate(['/help']); // 确保有对应的路由
+  async presentHelpPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: HelpPopoverComponent,
+      event: ev,
+      translucent: true,
+      cssClass: 'help-popover',
+      componentProps: {
+        content: `
+          <h2>库存管理帮助</h2>
+          <p>1. 搜索：使用顶部搜索栏可以快速查找物品</p>
+          <p>2. 特色项目：显示标记为特色的重要物品</p>
+          <p>3. 物品列表：显示所有库存物品</p>
+          <p>4. 操作：</p>
+          <ul>
+            <li>点击物品可查看/编辑详情</li>
+            <li>左滑可删除物品</li>
+            <li>点击右下角"+"添加新物品</li>
+          </ul>
+        `
+      }
+    });
+    await popover.present();
   }
 
   editItem(itemName: string) {
-  console.log('跳转编辑页面，itemName:', itemName);
-  this.router.navigate(['/edit', encodeURIComponent(itemName)]);
-}
+    console.log('跳转编辑页面，itemName:', itemName);
+    this.router.navigate(['/edit', encodeURIComponent(itemName)]);
+  }
 
 
   getFeaturedItems(): InventoryItem[] {
