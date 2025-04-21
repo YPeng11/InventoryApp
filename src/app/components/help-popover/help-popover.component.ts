@@ -2,6 +2,11 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
+/**
+ * HelpPopoverComponent is a standalone Angular component that displays a popover with customizable content.
+ * The content is passed as an input property and rendered using Angular's innerHTML directive.
+ * The component also includes custom styles for light and dark themes.
+ */
 @Component({
     selector: 'app-help-popover',
     template: `
@@ -52,5 +57,9 @@ import { IonicModule } from '@ionic/angular';
     imports: [CommonModule, IonicModule]
 })
 export class HelpPopoverComponent {
+    /**
+     * The content to be displayed inside the popover.
+     * This input property allows for dynamic HTML content to be passed into the component.
+     */
     @Input() content: string = '';
-} 
+}

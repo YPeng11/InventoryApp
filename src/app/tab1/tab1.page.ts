@@ -80,11 +80,11 @@ export class Tab1Page {
   // Alert 按钮配置
   alertButtons = [
     {
-      text: '取消',
+      text: 'Cancel',
       role: 'cancel',
     },
     {
-      text: '删除',
+      text: 'Delete',
       role: 'confirm',
       handler: () => {
         this.deleteItem();
@@ -196,12 +196,13 @@ export class Tab1Page {
     await popover.present();
   }
 
+//编辑项目
   editItem(itemName: string) {
     console.log('跳转编辑页面，itemName:', itemName);
     this.router.navigate(['/edit', encodeURIComponent(itemName)]);
   }
 
-
+  // 筛选出所有 `featured` 属性为 1 的库存项目
   getFeaturedItems(): InventoryItem[] {
     return this.items.filter(item => item.featured === 1);
   }
