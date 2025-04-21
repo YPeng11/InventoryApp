@@ -1,0 +1,88 @@
+:host {
+    --primary-color: #b399d4;
+    --secondary-color: #e6e6fa;
+    --accent-color: #9370db;
+    --text-color: #4b0082;
+    --background-color: #faf5ff;
+    --card-background: #ffffff;
+    --featured-color: #ffd700;
+}
+
+ion-content {
+    --background: var(--background-color);
+    color: var(--text-color);
+}
+
+ion-toolbar {
+    --background: var(--primary-color);
+    --color: white;
+}
+
+ion-title {
+    color: white;
+    font-weight: bold;
+}
+
+ion-item {
+    --background: var(--card-background);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+
+    ion-label {
+        color: var(--text-color);
+    }
+
+    ion-input,
+    ion-select,
+    ion-textarea {
+        color: var(--text-color);
+    }
+
+    ion-icon {
+        color: var(--accent-color);
+    }
+}
+
+ion-button {
+    --background: var(--primary-color);
+    --background-hover: var(--accent-color);
+    --color: white;
+    font-weight: 500;
+}
+
+ion-button[fill="outline"] {
+    --color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.required {
+    color: red;
+    font-weight: bold;
+}
+
+ion-toggle {
+    --handle-background: var(--accent-color);
+    --background: var(--secondary-color);
+}
+
+ion-alert {
+    --background: #fff0f5;
+    --color: var(--text-color);
+}
+
+/* 响应深色模式 */
+@media (prefers-color-scheme: dark) {
+    :host {
+        --background-color: #1e103a;
+        --card-background: #2d1b4e;
+        --text-color: #e6e6fa;
+        --primary-color: #9370db;
+        --secondary-color: #4b0082;
+    }
+
+    ion-button[fill="outline"] {
+        --color: #e6e6fa;
+        border: 1px solid #e6e6fa;
+    }
+}

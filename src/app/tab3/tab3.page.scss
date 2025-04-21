@@ -1,84 +1,116 @@
-/* 页面整体样式 */
+:host {
+    --primary-color: #b399d4; // 淡紫色
+    --secondary-color: #e6e6fa; // 薰衣草色
+    --accent-color: #9370db; // 中等紫色
+    --text-color: #4b0082; // 靛青色文本
+    --background-color: #faf5ff; // 非常淡的紫色背景
+    --card-background: #ffffff; // 白色卡片背景
+    --featured-color: #ffd700; // 金色用于特色项目
+}
+
+/* 页面背景和文字颜色 */
 ion-content {
-    --background: var(--ion-color-light); // 使用 Ionic 的浅色背景变量
-    color: var(--ion-color-dark); // 使用 Ionic 的深色文本变量
+    --background: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* 标题样式 */
+/* 页面标题样式 */
 ion-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--ion-color-primary); // 使用 Ionic 的主色变量
+    color: white;
 }
 
-/* 返回按钮样式 */
-ion-button[slot="start"] {
-    --color: var(--ion-color-primary); // 使用 Ionic 的主色变量
-    --background: transparent;
-    --background-hover: rgba(var(--ion-color-primary-rgb), 0.1); // 使用 RGB 变量实现悬停效果
+/* 工具栏样式 */
+ion-toolbar {
+    --background: var(--primary-color);
+    --color: white;
 }
 
-/* 帮助按钮样式 */
-ion-button[slot="end"] {
-    --color: var(--ion-color-warning); // 使用 Ionic 的警告色变量
-    --background: transparent;
-    --background-hover: rgba(var(--ion-color-warning-rgb), 0.1); // 使用 RGB 变量实现悬停效果
+/* 标题（大）样式 */
+ion-header ion-toolbar ion-title[size="large"] {
+    color: var(--text-color);
 }
 
-/* 主标题样式 */
-h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--ion-color-primary); // 使用 Ionic 的主色变量
-    margin-bottom: 1rem;
-}
+/* 文字内容样式 */
+ion-text {
+    h1 {
+        font-size: 1.6rem;
+        margin-top: 1rem;
+        color: var(--primary-color);
+    }
 
-/* 段落样式 */
-p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--ion-color-medium); // 使用 Ionic 的中等色变量
-    margin-bottom: 1.5rem;
-}
-
-/* 列表样式 */
-ul {
-    padding-left: 1.5rem;
-    margin-bottom: 1.5rem;
-
-    li {
+    p {
         font-size: 1rem;
-        line-height: 1.6;
-        color: var(--ion-color-medium); // 使用 Ionic 的中等色变量
-        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+        line-height: 1.5;
+        color: var(--text-color);
+    }
 
-        strong {
-            color: var(--ion-color-primary); // 使用 Ionic 的主色变量
+    ul {
+        padding-left: 1.2rem;
+        margin-top: 0.5rem;
+
+        li {
+            margin-bottom: 0.6rem;
+            line-height: 1.4;
+            color: var(--text-color);
+
+            strong {
+                color: var(--accent-color);
+            }
+
+            code {
+                background-color: var(--secondary-color);
+                padding: 0 4px;
+                border-radius: 4px;
+                font-family: monospace;
+                font-size: 0.9rem;
+                color: var(--text-color);
+            }
         }
     }
 }
 
-/* 代码块样式 */
-code {
-    background-color: var(--ion-color-light-shade); // 使用 Ionic 的浅色阴影变量
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-family: monospace;
-    color: var(--ion-color-danger); // 使用 Ionic 的危险色变量
+/* 按钮样式 */
+ion-button {
+    --background: var(--primary-color);
+    --background-hover: var(--accent-color);
+    --color: white;
 }
 
-/* 弹窗样式 */
-.alert-wrapper {
-    .alert-head {
-        background-color: var(--ion-color-primary); // 使用 Ionic 的主色变量
-        color: var(--ion-color-primary-contrast); // 使用 Ionic 的主色对比变量
+/* icon 样式（帮助按钮、返回按钮） */
+ion-icon {
+    color: white;
+}
+
+/* 响应式暗色模式 */
+@media (prefers-color-scheme: dark) {
+    :host {
+        --background-color: #1e103a;
+        --card-background: #2d1b4e;
+        --text-color: #e6e6fa;
+        --primary-color: #9370db;
+        --secondary-color: #4b0082;
     }
 
-    .alert-message {
-        color: var(--ion-color-dark); // 使用 Ionic 的深色变量
+    ion-content {
+        --background: var(--background-color);
+        color: var(--text-color);
     }
 
-    .alert-button {
-        color: var(--ion-color-primary); // 使用 Ionic 的主色变量
+    ion-toolbar {
+        --background: var(--primary-color);
+        --color: white;
+    }
+
+    ion-text h1,
+    ion-text p,
+    ion-text ul li {
+        color: var(--text-color);
+    }
+
+    ion-text ul li code {
+        background-color: var(--secondary-color);
+        color: white;
     }
 }

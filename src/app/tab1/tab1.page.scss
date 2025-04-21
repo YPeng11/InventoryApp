@@ -1,0 +1,127 @@
+/* 淡紫色主题变量 */
+:host {
+    --primary-color: #b399d4; // 淡紫色
+    --secondary-color: #e6e6fa; // 薰衣草色
+    --accent-color: #9370db; // 中等紫色
+    --text-color: #4b0082; // 靛青色文本
+    --background-color: #faf5ff; // 非常淡的紫色背景
+    --card-background: #ffffff; // 白色卡片背景
+    --featured-color: #ffd700; // 金色用于特色项目
+}
+
+/* 页面整体样式 */
+ion-content {
+    --background: var(--background-color);
+    color: var(--text-color);
+}
+
+/* 工具栏样式 */
+ion-toolbar {
+    --background: var(--primary-color);
+    --color: white;
+}
+
+/* 搜索栏样式 */
+ion-searchbar {
+    --background: var(--secondary-color);
+    --color: var(--text-color);
+    --placeholder-color: var(--text-color);
+    --icon-color: var(--text-color);
+}
+
+/* 列表样式 */
+ion-list {
+    background: transparent;
+}
+
+ion-item {
+    --background: var(--card-background);
+    --border-color: var(--secondary-color);
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 特色项目样式 */
+.featured {
+    color: var(--featured-color);
+    font-weight: bold;
+}
+
+/* 列表标题样式 */
+ion-list-header {
+    --background: transparent;
+
+    ion-text {
+        h3 {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+    }
+}
+
+/* 按钮样式 */
+ion-button {
+    --background: var(--primary-color);
+    --background-hover: var(--accent-color);
+    --color: white;
+}
+
+/* FAB按钮样式 */
+ion-fab-button {
+    --background: var(--accent-color);
+    --background-activated: var(--primary-color);
+    --color: white;
+}
+
+/* 删除按钮样式 */
+ion-item-option[color="danger"] {
+    --background: #ff6b6b;
+    --color: white;
+}
+
+/* 项目滑动效果 */
+ion-item-sliding {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 项目标签样式 */
+ion-label {
+    h2 {
+        color: var(--text-color);
+        font-weight: 600;
+    }
+
+    p {
+        color: var(--text-color);
+        opacity: 0.8;
+    }
+}
+
+/* 帮助按钮样式 */
+ion-button[slot="end"] {
+    --color: white;
+}
+
+/* 返回按钮样式 */
+ion-back-button {
+    --color: white;
+}
+
+/* 特色项目列表项样式 */
+ion-item[routerLink] {
+    --border-color: var(--featured-color);
+    border-left: 4px solid var(--featured-color);
+}
+
+/* 响应式调整 */
+@media (prefers-color-scheme: dark) {
+    :host {
+        --background-color: #1e103a;
+        --card-background: #2d1b4e;
+        --text-color: #e6e6fa;
+        --primary-color: #9370db;
+        --secondary-color: #4b0082;
+    }
+}
